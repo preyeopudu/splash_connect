@@ -2,7 +2,10 @@ import { useGoogleLogin } from "@react-oauth/google";
 import prenzyvideo from "../../assets/videos/prenzy.mp4";
 import logo from "../../assets/images/logo.png";
 import { FcGoogle } from "react-icons/fc";
+import { client } from "../../utils/client";
+import { useNavigate } from "react-router-dom";
 const Login = () => {
+  const navigate = useNavigate();
   const handleLogin = useGoogleLogin({
     onSuccess: (credentialResponse) => {
       console.log(credentialResponse.access_token);
@@ -13,8 +16,20 @@ const Login = () => {
       )
         .then((response) => response.json())
         .then((data) => {
-          console.log("user data", data);
           localStorage.setItem("user", JSON.stringify(data));
+
+          const { id, name, picture } = data;
+
+          const doc = {
+            _id: id,
+            _type: "user",
+            userName: name,
+            image: picture,
+          };
+
+          client.createIfNotExists(doc).then(() => {
+            navigate("/", { replace: true });
+          });
         })
         .catch((error) => {
           console.error(error);

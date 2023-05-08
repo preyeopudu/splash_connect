@@ -1,11 +1,13 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import Login from "./container/login/Login";
-console.log(process.env.REACT_APP_GOOGLE_CLIENT_ID);
+import Home from "./container/home/Home";
+
 const App = () => {
   return (
     <Routes>
-      <Route path="/*" element={<Login />} />
+      <Route path="login" element={<Login />} />
+      <Route path="/*" element={<Home />} />
     </Routes>
   );
 };
