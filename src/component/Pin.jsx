@@ -129,7 +129,7 @@ function Pin({
           </div>
         )}
       </div>
-      <Link
+      <div
         to={`/user-profile/${postedBy?._id}`}
         className="flex gap-2 mt-2 items-center"
       >
@@ -139,7 +139,7 @@ function Pin({
           alt="user-profile"
         />
         <p className="font-semibold capitalize">{postedBy?.userName}</p>
-      </Link>
+      </div>
     </div>
   );
 }
